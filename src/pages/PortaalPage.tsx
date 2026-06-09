@@ -32,11 +32,11 @@ export default function PortaalPage() {
   }, [projectId]);
 
   async function laadData() {
-    const { data: proj, error } = await supabase
-      .from('projects')
-      .select('id, naam, omschrijving, locatie, status')
-      .eq('id', projectId)
-      .single();
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(projectId!);
+    const query = supabase.from('projects').select('id, naam, omschrijving, locatie, status');
+    const { data: proj, error } = await (isUuid
+      ? query.eq('id', projectId).single()
+      : query.eq('slug', projectId).single());
 
     if (error || !proj) { navigate('/404'); return; }
     setProject(proj);
@@ -87,7 +87,7 @@ export default function PortaalPage() {
       {/* Acties */}
       <div className="grid grid-cols-2 gap-3 mb-6">
         <Link
-          to={`/project/${projectId}/melding`}
+          to={`/project/${project.id}/melding`}
           className="card flex flex-col items-center gap-2 py-5 hover:shadow-md transition-shadow text-center"
         >
           <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
@@ -97,7 +97,7 @@ export default function PortaalPage() {
           <span className="text-xs text-gray-400">Klacht of vraag indienen</span>
         </Link>
         <Link
-          to={`/project/${projectId}/bericht`}
+          to={`/project/${project.id}/bericht`}
           className="card flex flex-col items-center gap-2 py-5 hover:shadow-md transition-shadow text-center"
         >
           <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
