@@ -21,8 +21,8 @@ export default function PrivacyPage() {
               Ditch Connect is een app en webportaal van <strong>Ditch Projecten B.V.</strong>, waarmee
               bewoners en andere belanghebbenden op de hoogte blijven van infrastructuurprojecten in hun
               omgeving. Voor vragen over deze privacyverklaring kun je contact opnemen via{' '}
-              <a href="mailto:pdanker@ditchprojecten.nl" className="text-blue-600 underline">
-                pdanker@ditchprojecten.nl
+              <a href="mailto:info@ditchsystems.nl" className="text-blue-600 underline">
+                info@ditchsystems.nl
               </a>.
             </p>
           </section>
@@ -106,8 +106,8 @@ export default function PrivacyPage() {
               Ditch Connect geen accounts gebruikt, kunnen we gegevens meestal alleen terugvinden op basis van
               het e-mailadres of telefoonnummer dat je hebt opgegeven bij een melding of bericht. Neem
               hiervoor contact op via{' '}
-              <a href="mailto:pdanker@ditchprojecten.nl" className="text-blue-600 underline">
-                pdanker@ditchprojecten.nl
+              <a href="mailto:info@ditchsystems.nl" className="text-blue-600 underline">
+                info@ditchsystems.nl
               </a>.
             </p>
           </section>

@@ -51,8 +51,8 @@ export default function SupportPage() {
             <p className="flex items-center gap-2">
               <Mail size={15} className="text-gray-400" />
               Vraag niet gevonden? Mail naar{' '}
-              <a href="mailto:pdanker@ditchprojecten.nl" className="text-blue-600 underline">
-                pdanker@ditchprojecten.nl
+              <a href="mailto:info@ditchsystems.nl" className="text-blue-600 underline">
+                info@ditchsystems.nl
               </a>
             </p>
             <p className="flex items-center gap-2">
