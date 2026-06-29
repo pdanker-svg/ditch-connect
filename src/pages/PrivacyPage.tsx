@@ -99,7 +99,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section>
+          <section id="verwijderen">
             <h2 className="text-base font-semibold text-gray-900 mb-2">6. Jouw rechten</h2>
             <p>
               Onder de AVG heb je recht op inzage, correctie en verwijdering van je persoonsgegevens. Omdat
