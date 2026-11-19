@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import type { KeyboardEvent } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { MessageSquare, AlertTriangle, MapPin, ChevronRight, Megaphone } from 'lucide-react';
+import { MessageSquare, AlertTriangle, MapPin, ChevronDown, Megaphone } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 interface Project {
@@ -11,12 +12,13 @@ interface Project {
   status: string;
 }
 
+// Zelfde bron als de Connect-app: de projectupdates uit Ditch SRM.
 interface Update {
   id: string;
-  datum: string;
-  onderwerp: string;
-  inhoud: string;
-  type: string;
+  titel: string;
+  inhoud: string | null;
+  afbeelding_url: string | null;
+  created_at: string;
 }
 
 export default function PortaalPage() {
@@ -25,6 +27,7 @@ export default function PortaalPage() {
   const [project, setProject] = useState<Project | null>(null);
   const [updates, setUpdates] = useState<Update[]>([]);
   const [laden, setLaden] = useState(true);
+  const [uitgeklapt, setUitgeklapt] = useState<string | null>(null);
 
   useEffect(() => {
     if (!projectId) { navigate('/404'); return; }
@@ -41,15 +44,14 @@ export default function PortaalPage() {
     if (error || !proj) { navigate('/404'); return; }
     setProject(proj);
 
-    const { data: comm } = await supabase
-      .from('communicatie')
-      .select('id, datum, onderwerp, inhoud, type')
-      .eq('project_id', projectId)
-      .eq('type', 'nieuwsbrief')
-      .order('datum', { ascending: false })
-      .limit(5);
+    const { data: upd } = await supabase
+      .from('project_updates')
+      .select('id, titel, inhoud, afbeelding_url, created_at')
+      .eq('project_id', proj.id)
+      .order('created_at', { ascending: false })
+      .limit(10);
 
-    setUpdates(comm ?? []);
+    setUpdates(upd ?? []);
     setLaden(false);
   }
 
@@ -121,22 +123,43 @@ export default function PortaalPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {updates.map(u => (
-              <div key={u.id} className="card">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">{u.onderwerp}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">
-                      {new Date(u.datum).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
-                    </p>
+            {updates.map(u => {
+              const open = uitgeklapt === u.id;
+              const wissel = () => setUitgeklapt(open ? null : u.id);
+              return (
+                <div
+                  key={u.id}
+                  className="card cursor-pointer"
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={open}
+                  onClick={wissel}
+                  onKeyDown={(e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); wissel(); } }}
+                >
+                  {u.afbeelding_url && (
+                    <img
+                      src={u.afbeelding_url}
+                      alt=""
+                      loading="lazy"
+                      className={`w-full rounded-xl mb-3 bg-gray-100 ${open ? 'max-h-[28rem] object-contain' : 'h-40 object-cover'}`}
+                      onError={e => { e.currentTarget.style.display = 'none'; }}
+                    />
+                  )}
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-medium text-gray-900 text-sm">{u.titel}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">
+                        {new Date(u.created_at).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      </p>
+                    </div>
+                    <ChevronDown size={16} className={`text-gray-300 shrink-0 mt-0.5 transition-transform ${open ? 'rotate-180' : ''}`} />
                   </div>
-                  <ChevronRight size={16} className="text-gray-300 shrink-0 mt-0.5" />
+                  {u.inhoud && (
+                    <p className={`text-sm text-gray-600 mt-2 whitespace-pre-line ${open ? '' : 'line-clamp-2'}`}>{u.inhoud}</p>
+                  )}
                 </div>
-                {u.inhoud && (
-                  <p className="text-sm text-gray-600 mt-2 line-clamp-2">{u.inhoud}</p>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

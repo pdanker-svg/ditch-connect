@@ -5,11 +5,13 @@ import BerichtPage from './pages/BerichtPage';
 import PrivacyPage from './pages/PrivacyPage';
 import SupportPage from './pages/SupportPage';
 import NietGevondenPage from './pages/NietGevondenPage';
+import StartPage from './pages/StartPage';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<StartPage />} />
         <Route path="/project/:projectId" element={<PortaalPage />} />
         <Route path="/project/:projectId/melding" element={<MeldingPage />} />
         <Route path="/project/:projectId/bericht" element={<BerichtPage />} />

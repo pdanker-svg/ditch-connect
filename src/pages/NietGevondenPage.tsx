@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 
 export default function NietGevondenPage() {
@@ -11,6 +12,7 @@ export default function NietGevondenPage() {
         <p className="text-gray-500 text-sm">
           Deze link is niet geldig of het project bestaat niet meer.
         </p>
+        <Link to="/" className="inline-block mt-4 text-sm text-primary hover:underline">Naar de startpagina</Link>
       </div>
     </div>
   );
