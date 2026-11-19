@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AlertTriangle, ChevronLeft, CheckCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 const CATEGORIEEN = [
   { value: 'klacht', label: 'Klacht' },
@@ -34,20 +33,31 @@ export default function MeldingPage() {
     setLaden(true);
     setFout('');
     try {
-      const { error } = await supabase.from('meldingen').insert({
-        project_id: projectId,
-        kanaal: 'formulier',
-        categorie: form.categorie,
-        onderwerp: form.onderwerp,
-        omschrijving: form.omschrijving,
-        status: 'nieuw',
-        prioriteit: 'middel',
-        datum: new Date().toISOString().slice(0, 10),
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+      const res = await fetch(`${supabaseUrl}/functions/v1/connect-melding-indienen`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: import.meta.env.VITE_SUPABASE_ANON_KEY as string,
+        },
+        body: JSON.stringify({
+          projectId,
+          platform: 'web',
+          naam: form.naam,
+          email: form.email || null,
+          telefoon: form.telefoon || null,
+          categorie: form.categorie,
+          onderwerp: form.onderwerp,
+          omschrijving: form.omschrijving,
+        }),
       });
-      if (error) throw error;
+      if (!res.ok) {
+        const fout = await res.json().catch(() => ({}));
+        throw new Error((fout as { error?: string }).error ?? 'Verzenden mislukt.');
+      }
       setVerzonden(true);
-    } catch {
-      setFout('Verzenden mislukt. Probeer het opnieuw.');
+    } catch (err) {
+      setFout(err instanceof Error ? err.message : 'Verzenden mislukt. Probeer het opnieuw.');
     } finally {
       setLaden(false);
     }
