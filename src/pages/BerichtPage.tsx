@@ -132,7 +132,7 @@ export default function BerichtPage() {
 
         <p className="text-xs text-center text-gray-400">
           Je gegevens worden vertrouwelijk behandeld conform onze{' '}
-          <a href="https://ditchsystems.nl/privacy" target="_blank" rel="noopener noreferrer" className="underline">privacyverklaring</a>.
+          <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline">privacyverklaring</a>.
         </p>
       </form>
     </div>

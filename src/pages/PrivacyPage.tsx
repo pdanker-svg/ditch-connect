@@ -20,7 +20,8 @@ export default function PrivacyPage() {
             <p>
               Ditch Connect is een app en webportaal van <strong>Ditch Projecten B.V.</strong>, waarmee
               bewoners en andere belanghebbenden op de hoogte blijven van infrastructuurprojecten in hun
-              omgeving. Voor vragen over deze privacyverklaring kun je contact opnemen via{' '}
+              omgeving. Deze verklaring geldt ook voor het meldformulier van Ditch SRM
+              (srm.ditchsystems.nl/melden), zie paragraaf 3. Voor vragen over deze privacyverklaring kun je contact opnemen via{' '}
               <a href="mailto:info@ditchsystems.nl" className="text-blue-600 underline">
                 info@ditchsystems.nl
               </a>.
@@ -67,7 +68,8 @@ export default function PrivacyPage() {
               <li>
                 <strong>Misbruik voorkomen:</strong> bij het insturen van een melding leggen we je IP-adres en
                 (indien opgegeven) e-mailadres vast in een apart logboek. Dat gebruiken we alleen om het
-                aantal meldingen per afzender te begrenzen en zo spam en misbruik tegen te gaan.
+                aantal meldingen per afzender te begrenzen en zo spam en misbruik tegen te gaan. Deze
+                gegevens worden na 30 dagen automatisch verwijderd.
               </li>
               <li>
                 <strong>Bellen:</strong> als je op "Bellen" tikt, open je de standaard telefoon-app van je
@@ -76,8 +78,25 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
+          <section id="meldformulier">
+            <h2 className="text-base font-semibold text-gray-900 mb-2">3. Meldformulier van Ditch SRM</h2>
+            <p>
+              Via een QR-code of link kun je ook een melding doen op het meldformulier van Ditch SRM
+              (srm.ditchsystems.nl/melden). Daar vragen we je naam, en optioneel je e-mailadres,
+              telefoonnummer en adres (straat, huisnummer, postcode en plaats), zodat het projectteam je
+              melding kan plaatsen en contact met je kan opnemen. Deze gegevens gaan naar de organisatie die
+              het project beheert.
+            </p>
+            <p className="mt-2">
+              Het formulier is beveiligd met <strong>Cloudflare Turnstile</strong>, een controle die
+              spam en geautomatiseerd misbruik tegenhoudt. Cloudflare verwerkt daarvoor technische
+              gegevens van je browser en apparaat, zoals je IP-adres. Ook hier leggen we je IP-adres en
+              e-mailadres 30 dagen vast om het aantal meldingen per afzender te begrenzen.
+            </p>
+          </section>
+
           <section>
-            <h2 className="text-base font-semibold text-gray-900 mb-2">3. Waarvoor gebruiken we deze gegevens</h2>
+            <h2 className="text-base font-semibold text-gray-900 mb-2">4. Waarvoor gebruiken we deze gegevens</h2>
             <p>
               We gebruiken de gegevens uitsluitend om je te informeren over het project dat je volgt, om
               meldingen en berichten bij het juiste projectteam terecht te laten komen, en om misbruik tegen
@@ -86,7 +105,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-base font-semibold text-gray-900 mb-2">4. Met wie delen we gegevens</h2>
+            <h2 className="text-base font-semibold text-gray-900 mb-2">5. Met wie delen we gegevens</h2>
             <ul className="list-disc pl-5 space-y-1">
               <li>
                 <strong>Supabase</strong> (database- en hostingpartij, EU-datacenter) — voor het opslaan van
@@ -101,7 +120,18 @@ export default function PrivacyPage() {
                 ontvangstbevestiging als je bij een melding een e-mailadres opgeeft.
               </li>
               <li>
-                <strong>Vercel</strong> — hosting van de webversie (connect.ditchsystems.nl).
+                <strong>Vercel</strong> — hosting van de webversie (connect.ditchsystems.nl) en van Ditch SRM.
+              </li>
+              <li>
+                <strong>Cloudflare</strong> — spambeveiliging (Turnstile) van het meldformulier van Ditch SRM.
+              </li>
+              <li>
+                <strong>Anthropic</strong> (AI-dienst, Verenigde Staten) — alleen als een medewerker van het
+                projectteam in Ditch SRM zelf een AI-functie gebruikt. Dan kan de tekst van een bericht of
+                binnengekomen e-mail (voor een inschatting van de toon), de onderwerpen van meldingen en
+                berichten met de namen van betrokkenen (voor een periodieke rapportage) of de namen van
+                ontvangers (voor een concept-e-mail) naar Anthropic worden gestuurd. Dit gebeurt niet automatisch. Tevredenheidsbeoordelingen, foto's
+                en contactgegevens als e-mailadres en telefoonnummer worden niet naar Anthropic gestuurd.
               </li>
               <li>
                 De <strong>organisatie die het project beheert</strong> waarover je een melding of bericht
@@ -112,11 +142,13 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-base font-semibold text-gray-900 mb-2">5. Hoe lang bewaren we gegevens</h2>
+            <h2 className="text-base font-semibold text-gray-900 mb-2">6. Hoe lang bewaren we gegevens</h2>
             <p>
               Meldingen en berichten worden bewaard zolang het betreffende infrastructuurproject loopt en
               voor een redelijke periode daarna, zodat de projectorganisatie eventuele vervolgvragen kan
               afhandelen. Een foto bij een melding wordt bewaard zolang de melding zelf bewaard wordt.
+              Het logboek met IP-adressen en e-mailadressen tegen misbruik wordt na 30 dagen automatisch
+              opgeschoond.
               Een pushtoken wordt verwijderd zodra je meldingen voor dat project uitzet, het project
               verwijdert uit "Mijn projecten", of wanneer het token verloopt (bijvoorbeeld omdat je de app
               hebt verwijderd of meldingen in je toestelinstellingen hebt uitgezet).
@@ -124,7 +156,7 @@ export default function PrivacyPage() {
           </section>
 
           <section id="verwijderen">
-            <h2 className="text-base font-semibold text-gray-900 mb-2">6. Jouw rechten</h2>
+            <h2 className="text-base font-semibold text-gray-900 mb-2">7. Jouw rechten</h2>
             <p>
               Onder de AVG heb je recht op inzage, correctie en verwijdering van je persoonsgegevens. Omdat
               Ditch Connect geen accounts gebruikt, kunnen we gegevens meestal alleen terugvinden op basis van
@@ -137,7 +169,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-base font-semibold text-gray-900 mb-2">7. Beveiliging</h2>
+            <h2 className="text-base font-semibold text-gray-900 mb-2">8. Beveiliging</h2>
             <p>
               We nemen passende technische en organisatorische maatregelen om je gegevens te beschermen,
               waaronder versleutelde verbindingen (HTTPS) en toegangsbeveiliging op onze database.
@@ -145,7 +177,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-base font-semibold text-gray-900 mb-2">8. Wijzigingen</h2>
+            <h2 className="text-base font-semibold text-gray-900 mb-2">9. Wijzigingen</h2>
             <p>
               We kunnen deze privacyverklaring van tijd tot tijd aanpassen. De datum bovenaan deze pagina
               geeft aan wanneer de verklaring voor het laatst is bijgewerkt.
