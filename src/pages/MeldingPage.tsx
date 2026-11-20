@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AlertTriangle, ChevronLeft, CheckCircle } from 'lucide-react';
+import { haalProjectId } from '../lib/projectId';
 
 const CATEGORIEEN = [
   { value: 'klacht', label: 'Klacht' },
@@ -33,6 +34,8 @@ export default function MeldingPage() {
     setLaden(true);
     setFout('');
     try {
+      const id = await haalProjectId(projectId ?? '');
+      if (!id) throw new Error('Dit project bestaat niet (meer) of is niet actief.');
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
       const res = await fetch(`${supabaseUrl}/functions/v1/connect-melding-indienen`, {
         method: 'POST',
@@ -41,7 +44,7 @@ export default function MeldingPage() {
           apikey: import.meta.env.VITE_SUPABASE_ANON_KEY as string,
         },
         body: JSON.stringify({
-          projectId,
+          projectId: id,
           platform: 'web',
           naam: form.naam,
           email: form.email || null,

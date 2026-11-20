@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MessageSquare, ChevronLeft, CheckCircle } from 'lucide-react';
+import { haalProjectId } from '../lib/projectId';
 import { supabase } from '../lib/supabase';
 
 export default function BerichtPage() {
@@ -24,20 +25,22 @@ export default function BerichtPage() {
     setLaden(true);
     setFout('');
     try {
+      const id = await haalProjectId(projectId ?? '');
+      if (!id) throw new Error('Project niet gevonden.');
       // Zoek of de stakeholder al bestaat op basis van e-mail
       let stakeholderId: string | null = null;
       if (form.email) {
         const { data: bestaand } = await supabase
           .from('stakeholders')
           .select('id')
-          .eq('project_id', projectId)
+          .eq('project_id', id)
           .eq('email', form.email)
           .maybeSingle();
         stakeholderId = bestaand?.id ?? null;
       }
 
       const { error } = await supabase.from('communicatie').insert({
-        project_id: projectId,
+        project_id: id,
         stakeholder_id: stakeholderId,
         type: 'overig',
         datum: new Date().toISOString().slice(0, 10),
