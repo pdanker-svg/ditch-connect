@@ -10,7 +10,7 @@ export default function PrivacyPage() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-gray-900">Privacyverklaring</h1>
-            <p className="text-sm text-gray-400">Ditch Connect · laatst bijgewerkt: 20 november 2026</p>
+            <p className="text-sm text-gray-400">Ditch Connect · laatst bijgewerkt: 26 november 2026</p>
           </div>
         </div>
 
@@ -43,9 +43,11 @@ export default function PrivacyPage() {
               <li>
                 <strong>Pushmeldingen (app):</strong> meldingen staan pas aan als je daar per project voor
                 kiest en je toestel toestemming geeft. De app bewaart dan per gevolgd project een
-                pushtoken: een technische code waarmee een melding je toestel kan bereiken. We slaan daarbij
-                geen naam of e-mailadres op. Het token wordt alleen gebruikt om meldingen over dat project te
-                versturen, zoals een nieuwe update, een wijziging in de planning of een nieuwe omleiding.
+                pushtoken: een technische code waarmee een melding je toestel kan bereiken, gekoppeld aan het
+                project dat je volgt. We slaan daarbij geen naam of e-mailadres op. Het token wordt alleen
+                gebruikt om meldingen over dat project te versturen, zoals een nieuwe update, een wijziging in
+                de planning of een nieuwe omleiding. De meldingen worden verstuurd via Expo en afgeleverd door
+                Apple (op een iPhone) of door Google via Firebase Cloud Messaging (op Android).
               </li>
               <li>
                 <strong>Camera en foto's (app):</strong> de camera wordt gebruikt om QR-codes te scannen.
@@ -113,7 +115,12 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>Expo</strong> — voor het technisch afleveren van pushmeldingen op je toestel (via
-                Apple). Expo ontvangt daarvoor het pushtoken en de tekst van de melding.
+                Apple op iPhone en via Google Firebase Cloud Messaging op Android). Expo ontvangt daarvoor het
+                pushtoken en de tekst van de melding.
+              </li>
+              <li>
+                <strong>Google</strong> (Firebase Cloud Messaging) — voor het afleveren van pushmeldingen op
+                Android-toestellen. Google ontvangt daarvoor het pushtoken en de tekst van de melding.
               </li>
               <li>
                 <strong>Resend</strong> — voor het versturen van e-mail, zoals een automatische
